@@ -1,5 +1,6 @@
 import os.path
 import json
+from operation import Operation
 
 def get_5_operations():
 
@@ -10,6 +11,15 @@ def get_5_operations():
 
     data_json = json.loads(result)
 
+    operations_list = [Operation(item['id'],
+                                 item['date'],
+                                 item['state'],
+                                 item['operationAmount'],
+                                 item['description'],
+                                 item['from'] if 'from' in item else None,
+                                 item['to']) for item in data_json if item]
+    #print(len(operations_list))
+    #print(operations_list[0])
 
 
 
