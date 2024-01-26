@@ -1,16 +1,25 @@
 import os.path
 import json
-from operation import Operation
+from src.operation import Operation
 
-def load_operations_from_file():
+
+def load_operations_from_file(name):
     """function load json data from operations.json
     parse data to list
     create list with items of class <Operation>"""
 
-    file_name = os.path.join('..', 'operations.json')
+    file_name = os.path.join('..', name)
 
-    with open(file_name, 'r', encoding='utf-8') as f:
-        result = f.read()
+    #if not os.path.exists(file_name):
+    #    return None
+
+    try:
+        with open(file_name, 'r', encoding='utf-8') as f:
+            result = f.read()
+    except FileNotFoundError:
+        print("FileNotFoundError")
+        return None
+
 
     data_json = json.loads(result)
 
@@ -21,8 +30,8 @@ def load_operations_from_file():
                                  item['description'],
                                  item['from'] if 'from' in item else None,
                                  item['to']) for item in data_json if item]
-    # print(len(operations_list))
-    # print(operations_list[50])
+    # print(len(list_of_operations))
+    # print(list_of_operations[50])
 
     return list_of_operations
 
@@ -42,13 +51,18 @@ def get_last_operations(number=5):
     call chose of 'EXECUTED' operations
     print the requested number of last operations"""
 
-    operations_list = load_operations_from_file()
+    operations_list = load_operations_from_file('operations.json')
+    if not operations_list:
+        return None
+
     sorted_executed_operations = chose_sorted_executed_operations(operations_list)
 
     if len(sorted_executed_operations) < number:
         number = len(sorted_executed_operations)
 
     [print(item) for item in sorted_executed_operations[:number]]
+
+    return True
 
 
 #get_last_operations()

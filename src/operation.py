@@ -1,5 +1,6 @@
 import datetime
 
+
 class Operation():
 
     def __init__(self, ident, date, state, operation_amount, description, sent_from, sent_to):
