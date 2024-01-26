@@ -3,6 +3,29 @@ import json
 from src.operation import Operation
 
 
+"""
+def read_file(name):
+
+    file_name = os.path.join('..', name)
+
+    try:
+        with open(file_name, 'r', encoding='utf-8') as f:
+            result = f.read()
+        print(file_name + " is OK")
+    except FileNotFoundError:
+        print(file_name + " is not OK - FileNotFoundError")
+        try:
+            with open(name, 'r', encoding='utf-8') as f:
+                result = f.read()
+            print(name + " is OK")
+        except FileNotFoundError:
+            print(name + " is not OK - FileNotFoundError")
+            return None
+
+    return True
+"""
+
+
 def load_operations_from_file(name):
     """function load json data from operations.json
     parse data to list
@@ -10,16 +33,15 @@ def load_operations_from_file(name):
 
     file_name = os.path.join('..', name)
 
-    #if not os.path.exists(file_name):
-    #    return None
-
     try:
         with open(file_name, 'r', encoding='utf-8') as f:
             result = f.read()
     except FileNotFoundError:
-        print("FileNotFoundError")
-        return None
-
+        try:
+            with open(name, 'r', encoding='utf-8') as f:
+                result = f.read()
+        except FileNotFoundError:
+            return None
 
     data_json = json.loads(result)
 
@@ -42,6 +64,7 @@ def chose_sorted_executed_operations(list_of_operations):
 
     executed_operations = [item for item in list_of_operations if item.state == 'EXECUTED']
     executed_operations.sort(key=lambda oper: oper.date, reverse='true')
+
     #[print(item.date) for item in executed_operations]
     return executed_operations
 
@@ -65,6 +88,8 @@ def get_last_operations(number=5):
     return True
 
 
-#get_last_operations()
+get_last_operations()
+
+#read_file('operations.json')
 
 ##############

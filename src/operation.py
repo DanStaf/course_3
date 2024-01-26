@@ -1,7 +1,7 @@
 import datetime
 
 
-class Operation():
+class Operation:
 
     def __init__(self, ident, date, state, operation_amount, description, sent_from, sent_to):
 
@@ -24,7 +24,7 @@ class Operation():
     def get_date_in_format(self):
         return self.date.strftime("%d.%m.%Y")
 
-    def get_account_in_format(self,account_number):
+    def get_account_in_format(self, account_number):
 
         if not account_number:
             return ''
@@ -47,18 +47,3 @@ class Operation():
         else:
             return 'ERROR in reading of account number'
 
-#first_operation = Operation(ident=441945886,
-#                            date="2019-08-26T10:50:58.294041",
-#                            state="EXECUTED",
-#                            operation_amount={
-#                                "amount": "31957.58",
-#                                "currency": {
-#                                    "name": "руб.",
-#                                    "code": "RUB"
-#                                }
-#                            },
-#                            description="Перевод организации",
-#                            sent_from="Maestro 1596837868705199",
-#                            sent_to="Счет 64686473678894779589"
-#)
-#print(first_operation)
