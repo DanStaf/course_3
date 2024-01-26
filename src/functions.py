@@ -2,8 +2,7 @@ import os.path
 import json
 from operation import Operation
 
-
-def get_5_operations():
+def load_operations_from_file():
 
     file_name = os.path.join('..', 'operations.json')
 
@@ -19,9 +18,17 @@ def get_5_operations():
                                  item['description'],
                                  item['from'] if 'from' in item else None,
                                  item['to']) for item in data_json if item]
-    #print(len(operations_list))
+    # print(len(operations_list))
+    # print(operations_list[50])
 
-    print(operations_list[50])
+    return operations_list
+
+
+def get_5_operations():
+
+    operations_list = load_operations_from_file()
+
+
 
 
 
